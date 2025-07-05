@@ -42,8 +42,7 @@ exports.postUser = catchAsync(async (req, res) => {
 //verify user
 exports.verifyUser = catchAsync(async (req, res) => {
   const authHeader = req.headers.authorization;
-  const {error, token} = await extractToken(authHeader);
-  if (error) return res.status(error.httpCode).json(error);
+  const token = await extractToken(authHeader);
   const result = await authService.verifyUser(token);
   return res.status(result.httpCode).json(result);
 });
