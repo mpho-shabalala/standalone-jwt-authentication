@@ -7,7 +7,7 @@ Welcome to the backend authentication system. This project demonstrates a produc
 ## 🚀 Table of Contents
 
 - [Overview](#overview)
-- [Tech Stack](##tech-stack)
+- [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Setup & Installation](#setup--installation)
 - [Core Features](#core-features)
