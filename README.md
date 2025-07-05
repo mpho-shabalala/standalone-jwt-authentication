@@ -99,10 +99,9 @@ npm run dev
 - Unified format for all endpoints: `{ httpCode, status, message, statusCode, data }`
 
 ### 2. **Resilience**
-- Graceful error handling
+- Graceful error handling which catches input errors from the client and database errors
 - Global error middleware
 - Catching unknown routes
-- Prevent server crash from JSON failures
 
 ### 3. **Secure Access Architecture**
 - Access & Refresh token system
@@ -121,7 +120,7 @@ npm run dev
 
 ### 6. **Separation of Concerns**
 - Controllers: Extract from req/res
-- Services: Process logic & return data
+- Services: Process logic, return data and throw error into global error handler
 - Utils: Encapsulate low-level helpers
 - Reusable Middlewares
 
@@ -191,5 +190,3 @@ GitHub: [@mpho-shabalala](https://github.com/mpho-shabalala)
 MIT License. Built for learning, adaptation, and real-world application.
 
 ---
-
-Feel free to use this README as a boilerplate for similar backend systems. Let me know if you want a version tailored for MongoDB or PostgreSQL next!
