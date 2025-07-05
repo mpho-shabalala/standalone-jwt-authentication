@@ -1,15 +1,8 @@
+const AppError = require('./appError');
+
 const extractToken = async (authHeader) => {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return {
-      error: {
-        httpCode: 401,
-        status: 'fail',
-        message: 'Authorization header missing or malformed',
-        statusCode: 'MALFORMED_TOKEN',
-        data: null,
-      },
-      token: null,
-    };
+    throw new AppError('Authorization header missing or malformed', 401, 'MALFORMED_TOKEN');
   }
 
   const token = authHeader.split(' ')[1];

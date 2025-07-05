@@ -5,10 +5,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('../utils/jwt');
 const { sendVerificationEmail, sendPasswordResetEmail } = require('../utils/mailer');
 const { readData, writeData } = require('../utils/fileHandler');
-const { validateNewUser } = require('../utils/validators');
+const { validateNewUser, validateLoginUser , validatePasswordStrength} = require('../utils/validators');
 const userDBPath = '../Backend/database/users.json';
 const { signToken, verifyToken } = require('../utils/jwt');
-const {addTokenToBlacklist} = require('../utils/tokenBlacklist')
+const {addTokenToBlacklist} = require('../utils/tokenBlacklist');
+const AppError = require('../utils/appError');
+// const AppError = require('../utils/appError');
 
 const authService = {};
 
@@ -16,12 +18,8 @@ const authService = {};
 
 authService.registerUser = async (userInput) => {
   const { username, email, password, contacts, acceptNewsletter } = userInput;
-  console.log('inputs: ',userInput)
-  
-   console.log('we good upto so far')
   // Step 1: Validate inputs
-  const validationError = validateNewUser(userInput);
-  if (validationError) return validationError;
+  validateNewUser({username, email, password});
 
   // Step 2: Read users
   const data = readData(userDBPath);
@@ -30,13 +28,7 @@ authService.registerUser = async (userInput) => {
     u => u.username === username || u.email === email
   );
   if (userExists) {
-    return {
-      httpCode: 409,
-      status: 'fail',
-      message: 'A user with that username or email already exists.',
-      statusCode: 'USER_EXISTS',
-      data: null
-    };
+    throw new AppError('A user with that username or email already exists.', 409, 'USER_EXISTS' );
   }
 
   // Step 4: Hash password
@@ -67,13 +59,7 @@ authService.registerUser = async (userInput) => {
     await sendVerificationEmail(email, token, username);
     // throw new Error('error')
   } catch (err) {
-    return {
-      httpCode: 500,
-      status: 'fail',
-      message: 'Failed to send verification email',
-      statusCode: 'EMAIL_SEND_FAILED',
-      data: null
-    };
+    throw new AppError('Failed to send verification email', 500, 'EMAIL_SEND_FAILED' );
   }
 
   // Step 8: Return success
@@ -100,13 +86,7 @@ authService.verifyUser = async (token) => {
     const user = data.users.find(u => u.userID === decoded.userID);
 
     if (!user) {
-      return {
-        httpCode: 404,
-        status: 'fail',
-        message: 'User not found',
-        statusCode: 'USER_NOT_FOUND',
-        data: null,
-      };
+       throw new AppError('User not found', 404, 'USER_NOT_FOUND' );
     }
 
     if (user.emailVerified) {
@@ -164,44 +144,21 @@ authService.verifyUser = async (token) => {
 
 
 authService.loginUser = async ({ username, password }) => {
-  if (!username || !password) {
-    return {
-      httpCode: 400,
-      status: 'fail',
-      message: 'Username and password are required',
-      statusCode: 'MISSING_DETAILS',
-      data: null,
-    };
-  }
-
-  try {
+  validateLoginUser({username, password})
     const data = readData(userDBPath);
     const user = data.users.find(u => u.username === username);
 
     if (!user) {
-      return {
-        httpCode: 401,
-        status: 'fail',
-        message: 'Invalid username or password',
-        statusCode: 'USER_NOT_FOUND',
-        data: null,
-      };
+      throw new AppError('Invalid username or password', 401, 'USER_NOT_FOUND' );
     }
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return {
-        httpCode: 401,
-        status: 'fail',
-        message: 'Invalid username or password',
-        statusCode: 'INVALID_PASSWORD',
-        data: null,
-      };
+      throw new AppError('Invalid username or password', 401, 'USER_NOT_FOUND' );
     }
 
     const refreshToken = jwt.signRefreshToken({ userID: user.userID , role:user.role},'7d');
 
-    //create and send refresh tokeen to the cookie
     const token = jwt.signToken({ userID: user.userID , role:user.role},'1h' );
     return {
       httpCode: 200,
@@ -217,39 +174,17 @@ authService.loginUser = async ({ username, password }) => {
           userID: user.userID,
         },
       },
-    };
-  } catch (error) {
-    // Generic server error handler; JWT errors don't apply here
-    return {
-      httpCode: 500,
-      status: 'fail',
-      message: error.message,
-      statusCode: 'SERVER_ERROR',
-      data: null,
-    };
+    }
+
   }
-};
+
 
 authService.resetPassword = async (token, newPassword) => {
   if (!token) {
-    return {
-      httpCode: 400,
-      status: 'fail',
-      message: 'Reset token is required',
-      statusCode: 'TOKEN_REQUIRED',
-      data: null,
-    };
+    throw new AppError('Reset token is required', 400, 'TOKEN_REQUIRED' );
   }
 
-  if (!newPassword || newPassword.length < 8) {
-    return {
-      httpCode: 400,
-      status: 'fail',
-      message: 'Password must be at least 8 characters long',
-      statusCode: 'WEAK_PASSWORD',
-      data: null,
-    };
-  }
+  validatePasswordStrength(newPassword);
 
   try {
     // Verify token and extract userID
@@ -261,13 +196,7 @@ authService.resetPassword = async (token, newPassword) => {
     const user = data.users.find(u => u.userID === userID);
 
     if (!user) {
-      return {
-        httpCode: 404,
-        status: 'fail',
-        message: 'User not found',
-        statusCode: 'USER_NOT_FOUND',
-        data: null,
-      };
+      throw new AppError('User not found', 404, 'USER_NOT_FOUND' );
     }
 
     // Hash new password
@@ -297,26 +226,12 @@ authService.resetPassword = async (token, newPassword) => {
       message = 'Reset token is invalid.';
     }
 
-    return {
-      httpCode: 400,
-      status: 'fail',
-      message,
-      statusCode,
-      data: null,
-    };
+    throw new AppError(message, 400, statusCode );
   }
 };
 
 authService.forgotPassword = async (email) => {
-  if (!email) {
-    return {
-      httpCode: 400,
-      status: 'fail',
-      message: 'Email is required',
-      statusCode: 'EMAIL_REQUIRED',
-      data: null,
-    };
-  }
+ validateEmailOnly(email)
 
   // Read user data
   const data = readData(userDBPath);
@@ -348,6 +263,7 @@ authService.forgotPassword = async (email) => {
       data: null,
     };
   } catch (error) {
+    
     return {
       httpCode: 500,
       status: 'fail',
@@ -362,13 +278,7 @@ authService.forgotPassword = async (email) => {
 authService.refreshToken = async (refreshToken) => {
 
   if (!refreshToken) {
-    return {
-      httpCode: 401,
-      status: 'fail',
-      statusCode: 'MISSING_REFRESH_TOKEN',
-      message: 'Refresh token not provided',
-      data: null
-    };
+    throw new AppError('Refresh token not provided', 401, 'MISSING_REFRESH_TOKEN' );
   }
 
   try {
@@ -387,13 +297,7 @@ authService.refreshToken = async (refreshToken) => {
     };
 
   } catch (err) {
-    return {
-      httpCode: 403,
-      status: 'fail',
-      statusCode: 'INVALID_REFRESH_TOKEN',
-      message: 'Refresh token is invalid or expired',
-      data: null
-    };
+     throw new AppError('Refresh token is invalid or expired', 403, 'INVALID_REFRESH_TOKEN' );
   }
 };
 
@@ -421,14 +325,7 @@ authService.logoutUser =async  () => {
       statusCode = 'INVALID_TOKEN';
       message = 'Invalid token';
     }
-
-    return {
-      httpCode: 401,
-      status: 'fail',
-      message,
-      statusCode,
-      data: null,
-    };
+    throw new AppError(message, 401, statusCode );
   }
     
 }

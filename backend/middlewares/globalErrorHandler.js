@@ -1,19 +1,21 @@
+const AppError = require('../utils/appError');
 
+const globalErrorHandler = (err, req, res, next) => {
+  // If the error is not an instance of AppError, convert it to one (unexpected errors)
+  if (!(err instanceof AppError)) {
+    console.error('Unexpected Error:', err);
+    err = new AppError('Something went wrong on the server', 500, 'INTERNAL_SERVER_ERROR');
+  }
 
-const errorHandler = (err, req, res, next) => {
-  console.error('Global Error Handler:', err);
-
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Something went wrong.';
-  const status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
-
-  res.status(statusCode).json({
-    httpCode: statusCode,
-    status,
-    message,
-    statusCode: err.customCode || 'UNHANDLED_ERROR',
-    data: null
+  // Send error response
+  res.status(err.httpCode).json({
+    status: err.status,
+    statusCode: err.statusCode,
+    message: err.message,
+    // optionally include stack trace only in development
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    data: null,
   });
 };
 
-module.exports = errorHandler;
+module.exports = globalErrorHandler;

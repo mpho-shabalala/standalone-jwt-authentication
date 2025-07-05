@@ -1,104 +1,82 @@
+const AppError = require('./appError'); // Adjust path if needed
+
 const validators = {
   validateNewUser: ({ username, email, password }) => {
     if (!username || !email || !password) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Missing required fields',
-        statusCode: 'MISSING_FIELDS',
-        data: null,
-      };
+      throw new AppError(
+        'Missing required fields',
+        400,
+        'MISSING_FIELDS'
+      );
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Invalid email format',
-        statusCode: 'INVALID_EMAIL_FORMAT',
-        data: null,
-      };
+      throw new AppError(
+        'Invalid email format',
+        400,
+        'INVALID_EMAIL_FORMAT'
+      );
     }
 
     if (password.length < 8) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Password too short (minimum 8 characters)',
-        statusCode: 'WEAK_PASSWORD',
-        data: null,
-      };
+      throw new AppError(
+        'Password too short (minimum 8 characters)',
+        400,
+        'WEAK_PASSWORD'
+      );
     }
-
-    return null;
   },
 
   validateLoginUser: ({ username, password }) => {
     if (!username || !password) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Username and password are required',
-        statusCode: 'MISSING_CREDENTIALS',
-        data: null,
-      };
+      throw new AppError(
+        'Username and password are required',
+        400,
+        'MISSING_CREDENTIALS'
+      );
     }
-
-    return null;
   },
 
   validateEmailOnly: (email) => {
     if (!email) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Email is required',
-        statusCode: 'EMAIL_REQUIRED',
-        data: null,
-      };
+      throw new AppError(
+        'Email is required',
+        400,
+        'EMAIL_REQUIRED'
+      );
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Invalid email format',
-        statusCode: 'INVALID_EMAIL_FORMAT',
-        data: null,
-      };
+      throw new AppError(
+        'Invalid email format',
+        400,
+        'INVALID_EMAIL_FORMAT'
+      );
     }
-
-    return null;
   },
 
   validateUsernameFormat: (username) => {
     const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
     if (!usernameRegex.test(username)) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Invalid username format. Use 3-30 alphanumeric characters.',
-        statusCode: 'INVALID_USERNAME_FORMAT',
-        data: null,
-      };
+      throw new AppError(
+        'Invalid username format. Use 3–30 alphanumeric characters.',
+        400,
+        'INVALID_USERNAME_FORMAT'
+      );
     }
-    return null;
   },
 
   validatePasswordStrength: (password) => {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (!passwordRegex.test(password)) {
-      return {
-        httpCode: 400,
-        status: 'fail',
-        message: 'Password must be at least 8 characters, include letters and numbers',
-        statusCode: 'WEAK_PASSWORD_COMPLEXITY',
-        data: null,
-      };
+    if (!passwordRegex.test(password) || !password) {
+      throw new AppError(
+        'Password must be at least 8 characters, include letters and numbers',
+        400,
+        'WEAK_PASSWORD_COMPLEXITY'
+      );
     }
-    return null;
   }
 };
 

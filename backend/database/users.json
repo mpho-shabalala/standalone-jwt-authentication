@@ -128,6 +128,16 @@
       "acceptNewsletter": true,
       "emailVerified": true,
       "role": "user"
+    },
+    {
+      "userID": "8Dz1D-l_L",
+      "username": "coyyuuon4rlhgg",
+      "email": "oyyuguolghr5@gmail.com",
+      "contacts": "0832456789",
+      "password": "$2b$10$nyM3Ga0pDDmaLUlAK1Q0KO56DTPu4nLtohKZ3cMZkwkt6t.pML43e",
+      "acceptNewsletter": true,
+      "emailVerified": false,
+      "role": "user"
     }
   ]
 }
