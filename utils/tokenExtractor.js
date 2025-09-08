@@ -1,6 +1,8 @@
 const AppError = require('./appError');
 
-const extractToken = async (authHeader) => {
+const extractToken = async (req) => {
+  const authHeader = req.headers.authorization;
+  
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     throw new AppError('Authorization header missing or malformed', 401, 'MALFORMED_TOKEN');
   }

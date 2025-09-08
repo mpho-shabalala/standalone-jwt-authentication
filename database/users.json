@@ -1,143 +1,59 @@
 {
   "users": [
     {
-      "userID": "oij4jnz8N",
-      "username": "mphoza",
+      "userID": "E_6JKG_rr",
+      "username": "mpho",
       "email": "mphog3401@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$15$ntYAuIoc4iD9xv0nbf4ZiOUWkgMnMf6G04JVIUxYwdbqm8BXU15wy",
-      "acceptNewsletter": true,
-      "emailVerified": true
-    },
-    {
-      "userID": "x5d6fYOgp",
-      "username": "tcoyon46",
-      "email": "tcoyco5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$UVhBj6z/fZSePziiIXHT4uorZ5ShunmxCJVnX0groSq4CEIVjzZ3W",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "_d-IkU8Ze",
-      "username": "tcoyyon46",
-      "email": "tcoyyco5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$z2K7trAH2VGjf/.pI7VmP.oGREvyuAd5xwFIMgYo617TtmBiIjO3C",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "FI-GfIVlk",
-      "username": "coyyon46",
-      "email": "oyyco5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$bWYUY7Rs2NkssTA6aY4QqujF4FyPz46PMlssQZ73WYJtD265Jhegm",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "4Y2UzOqGn",
-      "username": "coyyyon46",
-      "email": "oyyyyco5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$kXkduX/NSYe2jycM8QOG.eZkG9gTnghpvuZ/bdpAOz3mAH59EAPQO",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "EZmK1tCWN",
-      "username": "coyyyon4",
-      "email": "oyyyo5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$3R/yZizeYAH74cmk5R/U0.DT/S4qFjwjM9J9NV7Pk4mfUw4PReT6K",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "yI_itu-RR",
-      "username": "coyyyon4l",
-      "email": "oyyyol5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$nLizWyoRTUT2mzJ2u83Hf.uu0V7GkrElcXkXmCSLzLuRvNsIC/Q6a",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "e1hjhRCKh",
-      "username": "coyyyuon4l",
-      "email": "oyyyuol5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$dHkVAAK/yxsySWIJDOESLOBsEj8sgiN7A31BZf522PYMF7m.rjBTa",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "wsdaHf9RZ",
-      "username": "coyyyuon4rl",
-      "email": "oyyyuolr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$S4uYQanPAxpCsX3Qron5oOmiXp0X/5JlDIcQeqbCPD6lUmbJZlLz.",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "UM_uVLe2Z",
-      "username": "coyyyuon4rlh",
-      "email": "oyyyuolhr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$cVjsHJG8ze2m7VDogsKTc.ij0DxAxO84cU8m/IIWNIBtTgJYl31Ki",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "umQcSzI_Z",
-      "username": "coyyuon4rlh",
-      "email": "oyyuolhr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$JuxOZxqyUY5FnvJc3CGM/.nIpBxJO/j0LwG4kTVIkEH4pvKukJOJW",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "or_7NiGD2",
-      "username": "coyyuon4rlhg",
-      "email": "oyyugolhr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$EweS3uBAxcI9/U8XqRXCJuEMBz99dGrDm7G5Ma.JgxYgl5NH8FZ5q",
-      "acceptNewsletter": true,
-      "emailVerified": false,
-      "role": "user"
-    },
-    {
-      "userID": "pnqsox1aD",
-      "username": "coyyuuon4rlhg",
-      "email": "oyyuguolhr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$EnMnIOsRGYqcut9WeIhYRuNBo.FYsjwyPHJFCsDdSPJqGxkRLk6nW",
-      "acceptNewsletter": true,
+      "contacts": "@Shabza0121.",
+      "password": "$2b$10$P71QI0FwWyorNKgssTCwH.dZ..xDxGoJdopvxo45IBq6qsGCItD.m",
+      "acceptNewsletter": false,
       "emailVerified": true,
-      "role": "user"
+      "role": "user",
+      "createdAt": "2025-08-22T19:17:56.784Z"
     },
     {
-      "userID": "8Dz1D-l_L",
-      "username": "coyyuuon4rlhgg",
-      "email": "oyyuguolghr5@gmail.com",
-      "contacts": "0832456789",
-      "password": "$2b$10$nyM3Ga0pDDmaLUlAK1Q0KO56DTPu4nLtohKZ3cMZkwkt6t.pML43e",
-      "acceptNewsletter": true,
+      "userID": "DnIvUDJ_W",
+      "username": "Kabelo",
+      "email": "morwele@gmail.com",
+      "contacts": "kabzaK02@.",
+      "password": "$2b$10$cOb9PJPSRgP6ofYpDs462eai2wtcPl1yo3NimeFo6Ier.D6SIsnW6",
+      "acceptNewsletter": false,
       "emailVerified": false,
-      "role": "user"
+      "role": "user",
+      "createdAt": "2025-09-04T12:08:19.113Z"
+    },
+    {
+      "userID": "wLEgL4wEx",
+      "username": "Kabelow",
+      "email": "morwelwe@gmail.com",
+      "contacts": "12323434565",
+      "password": "$2b$10$0J3fHUpe6yepWHVdfnDxquZLAmPDX4JaHdze2HYVrUM7RMCnBdIFS",
+      "acceptNewsletter": false,
+      "emailVerified": false,
+      "role": "user",
+      "createdAt": "2025-09-04T12:13:41.803Z"
+    },
+    {
+      "userID": "z0mvWvNOw",
+      "username": "JohnMeads",
+      "email": "jmeads@gmail.com",
+      "contacts": "43578435645",
+      "password": "$2b$10$enr5HNzku0XVrC5GrYfKPOu7OyLcI9w7rzqnt/h4DnMcLBf66Cqlu",
+      "acceptNewsletter": false,
+      "emailVerified": false,
+      "role": "user",
+      "createdAt": "2025-09-04T12:15:25.687Z"
+    },
+    {
+      "userID": "j4AKhDvO7",
+      "username": "mpho@gmail.com",
+      "email": "MPHOG3401@GMAIL.COM",
+      "contacts": "@Shabza0121.",
+      "password": "$2b$10$3Iwi1sipOhdQRMGzUBqQZe49dvrxg..GixghwzD8iJTMBVM7hWNu.",
+      "acceptNewsletter": false,
+      "emailVerified": false,
+      "role": "user",
+      "createdAt": "2025-09-04T12:35:29.156Z"
     }
   ]
 }

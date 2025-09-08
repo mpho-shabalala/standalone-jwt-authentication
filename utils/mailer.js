@@ -1,18 +1,26 @@
 
 const nodemailer = require('nodemailer');
-
+require('dotenv').config();
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
   },
 });
 
+(async () => {
+  try {
+    await transporter.verify();
+    console.log('Server is ready to send emails');
+  } catch (err) {
+    console.error('Error verifying transporter:', err);
+  }
+})();
+
 const mailer = {
   sendVerificationEmail: async (to, verificationToken, username) => {
-    const verificationURL = `${process.env.PAGE_RECOVER_URL}/verifyUser.html?token=${verificationToken}`;
-    console.log('token : ', verificationToken);
+    const verificationURL = `${process.env.PAGE_URL}/verify-user?token=${verificationToken}`;
     const mailOptions = {
       from: `Standard Cuts Support Team <${process.env.EMAIL_USERNAME}>`,
       to,
@@ -24,13 +32,16 @@ const mailer = {
         <p>If you didn't sign up, please ignore this email.</p>
       `,
     };
-
-     await transporter.sendMail(mailOptions);
+    try{
+      await transporter.sendMail(mailOptions);
+    }catch(error){
+      console.log(error)
+    }
+     
   },
 
   sendPasswordResetEmail: async (to, resetToken, username) => {
-  const resetURL = `${process.env.PAGE_RECOVER_URL}/resetPassword.html?token=${resetToken}`;
-  console.log('Password Reset URL:', resetURL);
+  const resetURL = `${process.env.PAGE_URL}/reset_password?token=${resetToken}`;
 
   const mailOptions = {
     from: `Standard Cuts Support Team <${process.env.EMAIL_USERNAME}>`,
@@ -44,8 +55,7 @@ const mailer = {
       <p>This link will expire in 15 minutes.</p>
     `,
   };
-
-  console.log('Mail options:', mailOptions);
+  
   await transporter.sendMail(mailOptions);
 },
 
